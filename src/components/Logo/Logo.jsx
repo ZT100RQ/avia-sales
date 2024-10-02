@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 
 function Logo() {
   const [loading, setLoading] = useState(null);
-  const { isFetching, isLoading } = useFetchTicketsQuery();
-  console.log(isFetching, isLoading);
+  const { data, isFetching, isLoading } = useFetchTicketsQuery();
+  console.log(data, isFetching, isLoading);
   useEffect(() => {
     if (!isFetching) setLoading(false);
-    if (isFetching || isLoading) setLoading(true);
-  }, [isFetching, isLoading]);
+    if ((isFetching && data) || isLoading) setLoading(true);
+  }, [isFetching, isLoading, data]);
   return (
     <>
       {loading && <span className={styles.Loader}></span>}
