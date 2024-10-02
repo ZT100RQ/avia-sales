@@ -1,13 +1,12 @@
 import styles from '../TransferFilter/TransferFilter.module.scss';
 import { Card, Checkbox, Flex, Typography } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import {setOne, setTwo, setThree, setZero, setAll} from '../../features/sort-tickets/sortSlice'
+import { setOne, setTwo, setThree, setZero, setAll } from '../../features/sort-tickets/sortSlice';
 
 const { Text } = Typography;
 
 function TransferFilter() {
   const { all, zero, one, two, three } = useSelector((state) => state.sort);
-  const tickets = useSelector((state) => state.sort.tickets);
   const dispatch = useDispatch();
   return (
     <>
@@ -19,7 +18,6 @@ function TransferFilter() {
           <Checkbox checked={one} onClick={() => dispatch(setOne())} className={styles.Checkbox}>1 пересадка</Checkbox>
           <Checkbox checked={two} onClick={() => dispatch(setTwo())} className={styles.Checkbox}>2 пересадка</Checkbox>
           <Checkbox checked={three} onClick={() => dispatch(setThree())} className={styles.Checkbox}>3 пересадки</Checkbox>
-          <div>{tickets}</div>
         </Flex>
       </Card>
     </>

@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import sortSlice from '../features/sort-tickets/sortSlice';
-import ticketsSlice from '../features/ticketsSlice/ticketsSlice';
+import tabsSlice from '../features/tabsSlice/tabsSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { ticketsApi } from '../features/api/api-service';
 
 export const store = configureStore({
   reducer: {
     sort: sortSlice,
-    tickets: ticketsSlice,
+    tabs: tabsSlice,
     [ticketsApi.reducerPath]: ticketsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -4,13 +4,13 @@ import { useFetchTicketsQuery } from '../../features/api/api-service';
 import { useEffect, useState } from 'react';
 
 function Logo() {
-  const [loading, setLoading] = useState(true);
-  const { data, isFetching } = useFetchTicketsQuery();
-
+  const [loading, setLoading] = useState(null);
+  const { isFetching, isLoading } = useFetchTicketsQuery();
+  console.log(isFetching, isLoading);
   useEffect(() => {
     if (!isFetching) setLoading(false);
-    if (isFetching && data) setLoading(true);
-  }, [data, isFetching]);
+    if (isFetching || isLoading) setLoading(true);
+  }, [isFetching, isLoading]);
   return (
     <>
       {loading && <span className={styles.Loader}></span>}

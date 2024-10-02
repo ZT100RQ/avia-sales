@@ -1,8 +1,15 @@
 import styles from '../Ticket/Ticket.module.scss';
 import { Card, Typography, Flex } from 'antd';
+import { format } from 'date-fns';
 const { Text } = Typography;
 
-const secondsConverter = (num) => `${Math.trunc(num / 60)}ч ${Math.trunc(num % 60)}м`;
+const setTimeFromMinutes = (minutes) => `${Math.trunc(minutes / 60)}ч ${minutes % 60}м`;
+
+const getArrivalTime = (date, minutes) => {
+  const departureTimeStamp = Date.parse(date);
+  const durationMs = minutes * 60000;
+  return format(new Date(departureTimeStamp + durationMs), 'kk:mm');
+};
 
 function Ticket({ ticket }) {
   return (
@@ -19,13 +26,21 @@ function Ticket({ ticket }) {
                 <Text className={styles.Text} type="secondary">
                   {ticket.segments[0].origin} – {ticket.segments[0].destination}
                 </Text>
-                <Text className={styles.Text}>10:45 – 08:00</Text>
+                <Text className={styles.Text}>
+                  {format(new Date(ticket.segments[0].date), 'kk:mm')}
+                  {' – '}
+                  {getArrivalTime(ticket.segments[0].date, ticket.segments[0].duration)}
+                </Text>
               </Flex>
               <Flex vertical align="start">
                 <Text className={styles.Text} type="secondary">
                   {ticket.segments[1].origin} – {ticket.segments[1].destination}
                 </Text>
-                <Text className={styles.Text}>10:45 – 08:00</Text>
+                <Text className={styles.Text}>
+                  {format(new Date(ticket.segments[1].date), 'kk:mm')}
+                  {' – '}
+                  {getArrivalTime(ticket.segments[1].date, ticket.segments[1].duration)}
+                </Text>
               </Flex>
             </Flex>
             <Flex vertical align="start" gap="small">
@@ -33,27 +48,39 @@ function Ticket({ ticket }) {
                 <Text className={styles.Text} type="secondary">
                   В ПУТИ
                 </Text>
-                <Text className={styles.Text}>{secondsConverter(ticket.segments[0].duration)}</Text>
+                <Text className={styles.Text}>{setTimeFromMinutes(ticket.segments[0].duration)}</Text>
               </Flex>
               <Flex vertical align="start">
                 <Text className={styles.Text} type="secondary">
                   В ПУТИ
                 </Text>
-                <Text className={styles.Text}>{secondsConverter(ticket.segments[1].duration)}</Text>
+                <Text className={styles.Text}>{setTimeFromMinutes(ticket.segments[1].duration)}</Text>
               </Flex>
             </Flex>
-            <Flex vertical align="start" gap="small">
+            <Flex vertical align="start" gap="small" justify={'space-between'}>
               <Flex vertical align="start">
                 <Text className={styles.Text} type="secondary">
-                  2 пересадки
+                  {!ticket.segments[0].stops.length
+                    ? 'Без пересадок'
+                    : ticket.segments[0].stops.length > 1
+                      ? `${ticket.segments[0].stops.length} пересадки`
+                      : '1 пересадка'}
                 </Text>
-                <Text className={styles.Text}>HKG, JNB</Text>
+                <Text className={styles.Text}>
+                  {ticket.segments[0].stops.length ? ticket.segments[0].stops.join(', ') : ' '}
+                </Text>
               </Flex>
-              <Flex vertical align="start">
+              <Flex vertical align="start" className={styles.LastFlex}>
                 <Text className={styles.Text} type="secondary">
-                  2 пересадки
+                  {!ticket.segments[1].stops.length
+                    ? 'Без пересадок'
+                    : ticket.segments[1].stops.length > 1
+                      ? `${ticket.segments[1].stops.length} пересадки`
+                      : '1 пересадка'}
                 </Text>
-                <Text className={styles.Text}>HKG, JNB</Text>
+                <Text className={styles.Text}>
+                  {ticket.segments[1].stops.length ? ticket.segments[1].stops.join(', ') : ' '}
+                </Text>
               </Flex>
             </Flex>
           </Flex>

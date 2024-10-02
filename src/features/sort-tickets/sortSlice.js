@@ -17,11 +17,11 @@ function setFilter(state, target, other) {
 export const sortSlice = createSlice({
   name: 'sort',
   initialState: {
-    all: false,
-    one: false,
-    two: false,
-    three: false,
-    zero: false,
+    all: true,
+    one: true,
+    two: true,
+    three: true,
+    zero: true,
   },
   reducers: {
     setAll: (state) => {

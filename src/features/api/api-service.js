@@ -20,7 +20,6 @@ export const ticketsApi = createApi({
           currentCache.stop = newCache.stop;
           return;
         }
-        // currentCa = da;
         currentCache.tickets = [...currentCache.tickets, ...newCache.tickets];
         currentCache.stop = newCache.stop;
       },

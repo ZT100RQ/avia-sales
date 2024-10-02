@@ -1,3 +1,3 @@
 # React + Vite
 
-# AVIA SALES: URL
+# AVIA SALES: https://avia-sales-rtk-query.vercel.app/
