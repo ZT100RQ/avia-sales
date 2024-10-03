@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 
 function Logo() {
   const [loading, setLoading] = useState(null);
-  const { data, isFetching, isLoading } = useFetchTicketsQuery();
-  console.log(data, isFetching, isLoading);
+  const { data, isFetching, isLoading } = useFetchTicketsQuery({ pollingInterval: 3000 });
+
   useEffect(() => {
-    if (!isFetching) setLoading(false);
+    if (data?.stop) setLoading(false);
     if ((isFetching && data) || isLoading) setLoading(true);
   }, [isFetching, isLoading, data]);
   return (
