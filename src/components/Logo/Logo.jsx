@@ -9,7 +9,7 @@ function Logo() {
 
   useEffect(() => {
     if (data?.stop) setLoading(false);
-    if ((isFetching && data) || isLoading) setLoading(true);
+    if (isFetching || isLoading) setLoading(true);
   }, [isFetching, isLoading, data]);
   return (
     <>
