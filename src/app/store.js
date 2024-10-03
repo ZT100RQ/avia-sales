@@ -15,9 +15,9 @@ export const store = configureStore({
       immutableCheck: false,
       serializableCheck: false,
     }).concat(ticketsApi.middleware),
-  // devTools: {
-  //   stateSanitizer: (state) => (state.data ? { ...state, data: '<<LONG_BLOB>>' } : state),
-  // },
+  devTools: {
+    stateSanitizer: (state) => (state.data ? { ...state, data: '<<LONG_BLOB>>' } : state),
+  },
 });
 
 setupListeners(store.dispatch);
