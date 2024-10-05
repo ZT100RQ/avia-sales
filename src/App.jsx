@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Logo></Logo>
-      <Flex justify="center" gap={20}>
+      <Flex className={styles.App} justify="center" gap={20}>
         <TransferFilter text={1} />
         <Flex justify="flex-start" vertical gap={20}>
           <ViewFilter />

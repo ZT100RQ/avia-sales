@@ -1,18 +1,38 @@
 import airplane from '../../assets/images/airplane.svg';
 import styles from '../Logo/Logo.module.scss';
 import { useFetchTicketsQuery } from '../../features/api/api-service';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { message } from 'antd';
 
 function Logo() {
+  const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(null);
   const { data, isFetching, isLoading } = useFetchTicketsQuery({ pollingInterval: 3000 });
 
+  const success = useCallback(() => {
+    messageApi.open({
+      type: 'loading',
+      content: 'Все билеты загрузились',
+      duration: 2.1,
+      style: {
+        marginTop: '20px',
+      },
+    });
+  }, [messageApi]);
+
   useEffect(() => {
-    if (data?.stop) setLoading(false);
+    if (data?.stop) success();
+  }, [data, success]);
+
+  useEffect(() => {
+    if (data?.stop) {
+      setLoading(false);
+    }
     if (isFetching || isLoading) setLoading(true);
   }, [isFetching, isLoading, data]);
   return (
     <>
+      {contextHolder}
       {loading && <span className={styles.Loader}></span>}
       <img src={airplane} className={styles.Logo} />
     </>

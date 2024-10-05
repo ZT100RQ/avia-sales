@@ -1,16 +1,3 @@
-// @font-face {
-//     font-family: 'Open Sans Medium';
-//     src: url('/src/assets/fonts/OpenSans-Medium.ttf') format('truetype');
-//     font-style: normal;
-//     font-weight: 600;
-//   };
-
-// @font-face {
-//     font-family: 'Open Sans Bold';
-//     src: url('/src/assets/fonts/OpenSans-SemiBold.ttf') format('truetype');
-//     font-style: normal;
-//     font-weight: 400;
-// }
 .Group {
   letter-spacing: 0;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
@@ -20,16 +7,26 @@
   text-align: left;
   font-size: 13px;
   user-select: none;
+  @media screen and (max-width: 810px) {
+    margin: 0 auto;
+  }
 }
 
 .Button {
-font-size: 12px;
-line-height: 20px;
-letter-spacing: 0.5px;
-text-align: center;
-
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  text-align: center;
   &:hover {
     background: rgba(241, 252, 255, 1);
     transition: 0.8s;
+  }
+  @media screen and (max-width: 560px) {
+    letter-spacing: 0;
+    padding-inline: 5px;
+  }
+  @media screen and (max-width: 475px) {
+    width: 100%;
+    border-radius: 6px;
   }
 }

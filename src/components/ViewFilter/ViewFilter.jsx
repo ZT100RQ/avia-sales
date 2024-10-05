@@ -1,7 +1,7 @@
 import styles from '../ViewFilter/ViewFilter.module.scss';
 import { Radio } from 'antd';
 import { useDispatch } from 'react-redux';
-import { setCheap, setFast, setOptimal } from '../../features/tabsSlice/tabsSlice'
+import { setCheap, setFast, setOptimal } from '../../features/tabsSlice/tabsSlice';
 
 function ViewFilter() {
   const dispatch = useDispatch();
