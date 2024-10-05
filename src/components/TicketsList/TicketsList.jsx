@@ -22,7 +22,7 @@ function TicketsList() {
   useEffect(() => {
     if ((ticketsData && (isError || !isError) && !ticketsData.stop) || isError) refetch();
   }, [isError, refetch, ticketsData]);
-  if (!sortingByStops(ticketsData.tickets, stops).length)
+  if (ticketsData?.tickets && !sortingByStops(ticketsData?.tickets, stops).length)
     return <Empty description="Рейсов, подходящих под заданные фильтры, не найдено" />;
   return (
     <>

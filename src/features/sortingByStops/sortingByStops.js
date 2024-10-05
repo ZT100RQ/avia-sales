@@ -9,7 +9,6 @@ export default function sortingByStops(listOfTickets, stops) {
   ]);
 
   const listOfStops = Object.keys(stops);
-  // all, zero, one = true , two = true, three
   listOfStops.forEach((element) => {
     if (stops[element]) {
       if (!sortedTickets.length) {
