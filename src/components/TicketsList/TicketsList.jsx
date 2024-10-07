@@ -10,20 +10,24 @@ import { useSelector } from 'react-redux';
 import sortingByStops from '../../features/sortingByStops/sortingByStops.js';
 
 function TicketsList() {
+  const { data: id } = useGetSearchIdQuery();
   const [numberOfTickets, setNumberOfTickets] = useState(5);
   const { cheap, fast, optimal } = useSelector((state) => state.tabs);
   const stops = useSelector((state) => state.sort);
-  const [searchId, setSearchId] = useState(null);
-  const { data: id } = useGetSearchIdQuery();
-  const { data: ticketsData, isError, refetch } = useFetchTicketsQuery(searchId ?? skipToken);
+  const [searchId, setSearchId] = useState(skipToken);
+  const { data: ticketsData, isError, refetch } = useFetchTicketsQuery(searchId);
+
   useEffect(() => {
     if (id?.searchId) setSearchId(id.searchId);
   }, [id]);
+
   useEffect(() => {
-    if ((ticketsData && (isError || !isError) && !ticketsData.stop) || isError) refetch();
+    if ((ticketsData && !ticketsData.stop) || isError) refetch();
   }, [isError, refetch, ticketsData]);
+
   if (ticketsData?.tickets && !sortingByStops(ticketsData?.tickets, stops).length)
     return <Empty description="Рейсов, подходящих под заданные фильтры, не найдено" />;
+
   return (
     <>
       <Flex vertical gap={20}>

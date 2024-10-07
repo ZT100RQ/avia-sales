@@ -7,11 +7,11 @@ import { message } from 'antd';
 function Logo() {
   const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(null);
-  const { data, isFetching, isLoading } = useFetchTicketsQuery({ pollingInterval: 3000 });
+  const { data, isFetching, isLoading } = useFetchTicketsQuery();
 
   const success = useCallback(() => {
     messageApi.open({
-      type: 'loading',
+      type: 'success',
       content: 'Все билеты загрузились',
       duration: 2.1,
       style: {
@@ -28,8 +28,10 @@ function Logo() {
     if (data?.stop) {
       setLoading(false);
     }
-    if (isFetching || isLoading) setLoading(true);
-  }, [isFetching, isLoading, data]);
+    if (isFetching || isLoading) {
+      setLoading(true);
+    }
+  }, [isFetching, data, isLoading]);
   return (
     <>
       {contextHolder}
